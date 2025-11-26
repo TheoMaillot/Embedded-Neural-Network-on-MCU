@@ -12,14 +12,14 @@ Le but de ce projet est le déploiement d’un réseau de neurones profonds pré
 ### Installation 
 
 ```bash
-gh repo clone TheoMaillot/embedded_ia_3A
+gh repo clone TheoMaillot/Embedded-Neural-Network-on-MCU
 ```
 
 ### Utilisation 
 
 1. Décrompresser dataset.rar pour extraire les deux fichiers .npy
-2. Ouvrir le fichier serial_evaluation.py et renseigner vos propres chemins d'accès aux fichiers .NPY [ligne 87 et 88](https://github.com/TheoMaillot/embedded_ia_3A/blob/main/serial_evaluation.py#L87-88)
-3. Brancher la carte et renseigner votre port COM [ligne 5](https://github.com/TheoMaillot/embedded_ia_3A/blob/main/serial_evaluation.py#L5)
+2. Ouvrir le fichier serial_evaluation.py et renseigner vos propres chemins d'accès aux fichiers .NPY [ligne 87 et 88](https://github.com/TheoMaillot/Embedded-Neural-Network-on-MCU/blob/main/serial_evaluation.py#L87-88)
+3. Brancher la carte et renseigner votre port COM [ligne 5](https://github.com/TheoMaillot/Embedded-Neural-Network-on-MCU/blob/main/serial_evaluation.py#L5)
 4. Décompresser [IA_Embeded.rar](./STM32cubeide-project/IA_Embeded.rar) et ouvrir le projet avec Cube Ide
 5. Dans X-CUBE-AI puis dans cifar10, ajouter votre fichier .h5 dans Model, et vos 2 fichier .npy dans Validation inputs et Validation outputs
 6. Appuyer sur Run
@@ -81,7 +81,7 @@ La dernière étape du développement du projet consistait à intégrer notre mo
 
 Le fichier [serial_evaluation.py](./serial_evaluation.py) gère la communication série entre notre PC et la carte : il synchronise l'UART, envoie des entrées (X_test) sous forme de floats 32, lit les sorties retournées par le STM32, compare les prédictions aux labels (Y_test) et calcule l'exactitude sur un nombre d'itérations donné.
 
-Lors de nos premiers tests avec ce code, nous avons remarqué que nous ne recevions rien de la carte (*ValueError: attempt to get argmax of an empty sequence*). Nous avons donc rajouté un *time.sleep(5)* à la [ligne 75](https://github.com/TheoMaillot/embedded_ia_3A/blob/main/serial_evaluation.py#L75) dans la fonction *evaluate_model_on_STM32*, après avoir envoyé les inputs, afin de laissé du temps de calcul à la carte. Ceci s'explique par la taille de la RAM du STM32L4R9, qui n'est pas assez importante pour réaliser les calculs aussi vite que sur notre ordinateur.
+Lors de nos premiers tests avec ce code, nous avons remarqué que nous ne recevions rien de la carte (*ValueError: attempt to get argmax of an empty sequence*). Nous avons donc rajouté un *time.sleep(5)* à la [ligne 75](https://github.com/TheoMaillot/Embedded-Neural-Network-on-MCU/blob/main/serial_evaluation.py#L75) dans la fonction *evaluate_model_on_STM32*, après avoir envoyé les inputs, afin de laissé du temps de calcul à la carte. Ceci s'explique par la taille de la RAM du STM32L4R9, qui n'est pas assez importante pour réaliser les calculs aussi vite que sur notre ordinateur.
 
 ---
 
